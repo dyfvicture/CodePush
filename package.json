@@ -1,0 +1,27 @@
+{
+  "name": "updex_rn",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "bundle-and": "rm -rf ./android/app/src/main/assets/* && react-native bundle --platform android --dev false --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/assets && cp -rf pages/* android/app/src/main/assets",
+    "bundle-ios": "react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ./ios/bundle/main.jsbundle --assets-dest ./ios && cp -rf ./pages/* ios/assets/pages && cp -rf ios/assets ios/bundle",
+    "release-and": "npm run bundle-and && code-push release updex-android android/app/src/main/assets 1.0.0",
+    "release-ios": "npm run bundle-ios && code-push release updex-ios ./ios/bundle 1.0.0"
+  },
+  "dependencies": {
+    "react": "16.6.1",
+    "react-native": "0.57.5",
+    "react-native-code-push": "^5.4.2"
+  },
+  "devDependencies": {
+    "babel-jest": "23.6.0",
+    "jest": "23.6.0",
+    "metro-react-native-babel-preset": "0.49.2",
+    "react-test-renderer": "16.6.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
